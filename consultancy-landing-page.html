@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northbound Partners — Market-Entry Advisory (Customizable Template)</title>
+<meta name="description" content="A customizable, section-by-section consultancy landing page template. Edit colors and fonts in the CSS variables, and edit all copy in the SITE_CONTENT object at the bottom.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================================================================
+   CUSTOMIZE YOUR BRAND HERE — colors, fonts, spacing, radius
+   Change these variables and the whole page updates.
+   ================================================================ */
+:root{
+  --color-bg:        #ECEEE6;   /* page background (light sections) */
+  --color-surface:   #FFFFFF;   /* card backgrounds */
+  --color-ink:        #15252A;  /* near-black, headings, dark sections */
+  --color-ink-soft:   #44595B;  /* secondary / body text */
+  --color-brass:      #C8973A;  /* primary accent — buttons, numbers */
+  --color-brass-dark: #A87C28;  /* brass hover state */
+  --color-teal:       #3E6B5E;  /* secondary accent — links, icons */
+  --color-line:       #D7D9CD;  /* hairline borders, light bg */
+  --color-line-dark:  rgba(244,243,236,0.16); /* hairline borders, dark bg */
+  --color-paper-text: rgba(244,243,236,0.82); /* body copy on dark bg */
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Archivo', -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --container: 1180px;
+  --section-pad: clamp(4rem, 8vw, 6.5rem);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--color-bg);
+  color:var(--color-ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ margin:0; padding:0; list-style:none; }
+h1,h2,h3{ font-family:var(--font-display); font-weight:600; line-height:1.1; margin:0; }
+p{ margin:0; }
+button{ font-family:inherit; cursor:pointer; background:none; border:none; }
+
+.container{ max-width:var(--container); margin:0 auto; padding:0 1.5rem; }
+.sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--color-brass); color:var(--color-ink);
+  padding:.6rem 1rem; z-index:200; font-weight:600;
+}
+.skip-link:focus{ left:1rem; top:1rem; }
+
+:focus-visible{ outline:2px solid var(--color-brass); outline-offset:3px; }
+
+/* ---------- Eyebrow / utility label ---------- */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--color-teal); font-weight:500; margin-bottom:1rem;
+}
+.eyebrow .ico{ width:14px; height:14px; color:var(--color-brass); }
+.on-dark .eyebrow{ color:#D9C68F; }
+.on-dark .eyebrow .ico{ color:var(--color-brass); }
+
+.section-head{ max-width:640px; margin-bottom:3rem; }
+.section-head h2{ font-size:clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom:.9rem; }
+.section-head p{ color:var(--color-ink-soft); font-size:1.05rem; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.85rem 1.5rem; border-radius:var(--radius-sm);
+  font-weight:600; font-size:.95rem; transition:background .2s ease, color .2s ease, transform .15s ease;
+  white-space:nowrap;
+}
+.btn-primary{ background:var(--color-brass); color:var(--color-ink); }
+.btn-primary:hover{ background:var(--color-brass-dark); transform:translateY(-1px); }
+.btn-ghost{ border:1px solid var(--color-line); color:var(--color-ink); }
+.btn-ghost:hover{ border-color:var(--color-ink); }
+.on-dark .btn-ghost{ border-color:var(--color-line-dark); color:#F4F3EC; }
+.on-dark .btn-ghost:hover{ border-color:#F4F3EC; }
+.btn-sm{ padding:.6rem 1.1rem; font-size:.85rem; }
+.btn-text{ color:var(--color-teal); font-weight:600; border-bottom:1px solid currentColor; padding:.1rem 0; }
+
+/* ================================================================
+   SECTION 1 — HEADER / NAV
+   ================================================================ */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  background:transparent;
+  transition:background .3s ease, box-shadow .3s ease;
+}
+.site-header.is-scrolled{
+  background:rgba(236,238,230,0.92); backdrop-filter:blur(8px);
+  box-shadow:0 1px 0 var(--color-line);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  height:76px;
+}
+.logo{ font-family:var(--font-display); font-weight:600; font-size:1.25rem; color:#F4F3EC; letter-spacing:-.01em; }
+.site-header.is-scrolled .logo{ color:var(--color-ink); }
+.logo span{ color:var(--color-brass); }
+
+.nav-desktop{ display:none; gap:2.1rem; }
+.nav-desktop a{
+  font-size:.92rem; font-weight:500; color:#F4F3EC; opacity:.88;
+  transition:opacity .2s ease;
+}
+.site-header.is-scrolled .nav-desktop a{ color:var(--color-ink); opacity:.78; }
+.nav-desktop a:hover{ opacity:1; }
+
+.header-actions{ display:flex; align-items:center; gap:.9rem; }
+.site-header:not(.is-scrolled) .header-actions .btn-primary{ background:var(--color-brass); }
+
+.nav-toggle{
+  display:flex; flex-direction:column; justify-content:center; gap:5px;
+  width:38px; height:38px; padding:0;
+}
+.nav-toggle span{
+  display:block; width:22px; height:2px; background:#F4F3EC; margin:0 auto; transition:background .2s ease, transform .25s ease, opacity .2s ease;
+}
+.site-header.is-scrolled .nav-toggle span{ background:var(--color-ink); }
+body.nav-open .nav-toggle span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+body.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+body.nav-open .nav-toggle span{ background:var(--color-ink); }
+
+.nav-mobile{
+  position:fixed; inset:76px 0 0 0; background:var(--color-bg);
+  transform:translateY(-8px); opacity:0; pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  display:flex; flex-direction:column; padding:1.5rem 1.5rem 2rem;
+  z-index:99;
+}
+body.nav-open .nav-mobile{ opacity:1; transform:translateY(0); pointer-events:auto; }
+.nav-mobile a{
+  font-family:var(--font-display); font-size:1.6rem; padding:.7rem 0;
+  border-bottom:1px solid var(--color-line); color:var(--color-ink);
+}
+.nav-mobile .btn{ margin-top:1.5rem; align-self:flex-start; }
+
+@media (min-width:880px){
+  .nav-desktop{ display:flex; }
+  .nav-toggle{ display:none; }
+  .nav-mobile{ display:none; }
+}
+
+/* ================================================================
+   SECTION 2 — HERO
+   ================================================================ */
+.hero{
+  background:var(--color-ink); color:#F4F3EC; position:relative; overflow:hidden;
+  padding-top:clamp(3rem,8vw,5rem); padding-bottom:clamp(4rem,9vw,6rem);
+  margin-top:-76px;
+}
+.hero-rings{
+  position:absolute; top:-180px; right:-180px; width:560px; height:560px;
+  border-radius:50%; pointer-events:none;
+}
+.hero-rings circle{ fill:none; stroke:var(--color-brass); opacity:.18; }
+.hero-inner{ padding-top:76px; position:relative; z-index:2; }
+.hero-grid{ display:grid; gap:2.5rem; align-items:start; }
+.hero h1{
+  font-size:clamp(2.4rem, 5.6vw, 4.1rem); font-weight:600; max-width:14ch;
+  margin-bottom:1.4rem;
+}
+.hero-lede{ font-size:1.15rem; color:var(--color-paper-text); max-width:46ch; margin-bottom:2rem; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2.8rem; }
+.hero-social{ display:flex; gap:1.1rem; }
+.hero-social a{
+  width:36px; height:36px; border:1px solid var(--color-line-dark); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; color:#F4F3EC; opacity:.75;
+  transition:opacity .2s ease, border-color .2s ease;
+}
+.hero-social a:hover{ opacity:1; border-color:var(--color-brass); }
+.hero-social svg{ width:16px; height:16px; }
+
+.hero-stats{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+  border-top:1px solid var(--color-line-dark); padding-top:2rem; margin-top:1rem;
+}
+.hero-stats .stat-value{
+  font-family:var(--font-mono); font-size:clamp(1.5rem,2.6vw,2rem); color:var(--color-brass); font-weight:500;
+}
+.hero-stats .stat-label{ font-size:.82rem; color:var(--color-paper-text); margin-top:.3rem; }
+
+/* ---------- Route divider (signature element) ---------- */
+.route-divider{
+  position:relative; padding:3rem 0; background:var(--color-bg);
+}
+.route-divider::before{
+  content:""; position:absolute; left:0; right:0; top:50%;
+  border-top:2px dashed var(--color-line); transform:translateY(-1px);
+}
+.route-divider .container{ display:flex; justify-content:center; }
+.route-pin{
+  position:relative; z-index:2; display:flex; align-items:center; gap:.6rem;
+  background:var(--color-bg); padding:0 1.2rem;
+}
+.route-pin .pin-badge{
+  width:38px; height:38px; border-radius:50%; background:var(--color-surface);
+  border:1px solid var(--color-line); display:flex; align-items:center; justify-content:center;
+  color:var(--color-brass); box-shadow:0 4px 14px rgba(21,37,42,0.08);
+  transition:transform .4s ease;
+}
+.route-divider.in-view .pin-badge{ transform:scale(1.12); }
+.route-pin .pin-badge svg{ width:18px; height:18px; }
+.route-pin span{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-ink-soft); }
+
+/* ================================================================
+   SECTION 3 — WHY CHOOSE US
+   ================================================================ */
+.why{ padding:var(--section-pad) 0; }
+.why-grid{ display:grid; gap:3rem; align-items:center; }
+.why-art{
+  background:var(--color-surface); border-radius:var(--radius-md); border:1px solid var(--color-line);
+  padding:2rem; aspect-ratio:4/3.2; display:flex; align-items:center; justify-content:center;
+}
+.why-points{ display:grid; grid-template-columns:1fr; gap:1.6rem; margin:2.2rem 0 2.2rem; }
+@media (min-width:560px){ .why-points{ grid-template-columns:1fr 1fr; } }
+.why-point{ display:flex; gap:.85rem; }
+.why-point .ico{
+  width:28px; height:28px; flex:none; color:var(--color-teal); margin-top:.1rem;
+}
+.why-point .ico svg{ width:18px; height:18px; }
+.why-point h3{ font-family:var(--font-body); font-size:1rem; font-weight:700; margin-bottom:.25rem; }
+.why-point p{ color:var(--color-ink-soft); font-size:.93rem; }
+
+/* ================================================================
+   SECTION 4 — SERVICES
+   ================================================================ */
+.services{ padding:var(--section-pad) 0; background:var(--color-surface); border-top:1px solid var(--color-line); border-bottom:1px solid var(--color-line); }
+.services-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem; }
+.services-grid{
+  display:grid; grid-template-columns:1fr; gap:1.5rem; margin-top:2.8rem;
+}
+@media (min-width:680px){ .services-grid{ grid-template-columns:1fr 1fr; } }
+@media (min-width:1020px){ .services-grid{ grid-template-columns:repeat(4,1fr); } }
+.service-card{
+  background:var(--color-bg); border:1px solid var(--color-line); border-radius:var(--radius-md);
+  padding:1.8rem; transition:transform .25s ease, box-shadow .25s ease;
+}
+.service-card:hover{ transform:translateY(-4px); box-shadow:0 12px 28px rgba(21,37,42,0.08); }
+.service-card .ico{
+  width:46px; height:46px; border-radius:50%; background:var(--color-ink); color:var(--color-brass);
+  display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem;
+}
+.service-card .ico svg{ width:22px; height:22px; }
+.service-card h3{ font-family:var(--font-body); font-size:1.05rem; font-weight:700; margin-bottom:.6rem; }
+.service-card p{ color:var(--color-ink-soft); font-size:.92rem; }
+
+/* ================================================================
+   SECTION 5 — INSIGHTS / BLOG
+   ================================================================ */
+.insights{ padding:var(--section-pad) 0; }
+.insights-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem; }
+.insights-grid{ display:grid; grid-template-columns:1fr; gap:1.8rem; margin-top:2.8rem; }
+@media (min-width:760px){ .insights-grid{ grid-template-columns:repeat(3,1fr); } }
+.insight-card{ display:flex; flex-direction:column; }
+.insight-thumb{
+  background:linear-gradient(135deg, var(--color-ink), #234047);
+  border-radius:var(--radius-md); aspect-ratio:16/10; margin-bottom:1.2rem;
+  display:flex; align-items:flex-end; padding:1rem; position:relative; overflow:hidden;
+}
+.insight-thumb .tag{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+  background:rgba(244,243,236,0.92); color:var(--color-ink); padding:.3rem .65rem; border-radius:3px;
+}
+.insight-card h3{ font-family:var(--font-body); font-size:1.05rem; font-weight:700; margin-bottom:.5rem; line-height:1.35; }
+.insight-card .meta{ font-family:var(--font-mono); font-size:.75rem; color:var(--color-ink-soft); margin-bottom:.6rem; display:block; }
+.insight-card p{ color:var(--color-ink-soft); font-size:.92rem; margin-bottom:.9rem; }
+
+/* ================================================================
+   SECTION 6 — CLIENTS
+   ================================================================ */
+.clients{ padding:var(--section-pad) 0; background:var(--color-ink); color:#F4F3EC; }
+.clients .section-head h2{ color:#F4F3EC; }
+.clients .section-head p{ color:var(--color-paper-text); }
+.clients-grid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin-top:2.5rem;
+  background:var(--color-line-dark); border:1px solid var(--color-line-dark);
+}
+@media (min-width:640px){ .clients-grid{ grid-template-columns:repeat(4,1fr); } }
+.client-cell{
+  background:var(--color-ink); padding:1.8rem 1rem; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:.85rem; letter-spacing:.03em; color:var(--color-paper-text);
+  text-align:center; transition:color .2s ease;
+}
+.client-cell:hover{ color:var(--color-brass); }
+
+/* ================================================================
+   SECTION 7 — TESTIMONIALS
+   ================================================================ */
+.testimonials{ padding:var(--section-pad) 0; }
+.testi-grid{ display:grid; grid-template-columns:1fr; gap:1.6rem; margin-top:2.8rem; }
+@media (min-width:780px){ .testi-grid{ grid-template-columns:repeat(3,1fr); } }
+.testi-card{
+  background:var(--color-surface); border:1px solid var(--color-line); border-radius:var(--radius-md);
+  padding:1.9rem; display:flex; flex-direction:column; justify-content:space-between;
+}
+.testi-quote{ font-family:var(--font-display); font-size:1.08rem; line-height:1.45; margin-bottom:1.4rem; }
+.testi-quote::before{ content:"“"; color:var(--color-brass); }
+.testi-quote::after{ content:"”"; color:var(--color-brass); }
+.testi-who{ font-size:.85rem; color:var(--color-ink-soft); }
+.testi-who strong{ display:block; color:var(--color-ink); font-weight:700; }
+
+/* ================================================================
+   SECTION 8 — FAQ
+   ================================================================ */
+.faq{ padding:var(--section-pad) 0; background:var(--color-surface); border-top:1px solid var(--color-line); }
+.faq-list{ max-width:760px; margin-top:2.5rem; }
+.faq-item{ border-bottom:1px solid var(--color-line); }
+.faq-q{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:1.3rem 0; text-align:left; font-family:var(--font-body); font-weight:600; font-size:1rem;
+  color:var(--color-ink);
+}
+.faq-icon{
+  position:relative; width:18px; height:18px; flex:none;
+}
+.faq-icon::before, .faq-icon::after{
+  content:""; position:absolute; background:var(--color-teal); transition:transform .25s ease;
+}
+.faq-icon::before{ top:8px; left:0; width:18px; height:2px; }
+.faq-icon::after{ top:0; left:8px; width:2px; height:18px; }
+.faq-item.open .faq-icon::after{ transform:rotate(90deg); }
+.faq-a{ padding:0 0 1.4rem; max-width:62ch; }
+.faq-a p{ color:var(--color-ink-soft); font-size:.95rem; }
+
+/* ================================================================
+   SECTION 9 — NEWSLETTER
+   ================================================================ */
+.newsletter{ padding:var(--section-pad) 0; }
+.newsletter-box{
+  background:var(--color-ink); color:#F4F3EC; border-radius:var(--radius-md);
+  padding:clamp(2rem,5vw,3.2rem); display:grid; gap:1.8rem; align-items:center;
+}
+@media (min-width:760px){ .newsletter-box{ grid-template-columns:1.1fr 1fr; } }
+.newsletter-box h2{ font-size:clamp(1.6rem,2.8vw,2.1rem); margin-bottom:.7rem; }
+.newsletter-box p{ color:var(--color-paper-text); }
+.newsletter-form{ display:flex; gap:.7rem; flex-wrap:wrap; }
+.newsletter-form input{
+  flex:1 1 200px; padding:.85rem 1rem; border-radius:var(--radius-sm); border:1px solid var(--color-line-dark);
+  background:rgba(244,243,236,0.06); color:#F4F3EC; font-family:var(--font-body); font-size:.95rem;
+}
+.newsletter-form input::placeholder{ color:rgba(244,243,236,0.55); }
+.newsletter-note{ font-size:.85rem; color:var(--color-brass); margin-top:.8rem; min-height:1.2em; }
+
+/* ================================================================
+   SECTION 10 — FOOTER
+   ================================================================ */
+.site-footer{ background:var(--color-ink); color:#F4F3EC; padding:3.5rem 0 2rem; border-top:1px solid var(--color-line-dark); }
+.footer-grid{ display:grid; gap:2.5rem; margin-bottom:2.5rem; }
+@media (min-width:780px){ .footer-grid{ grid-template-columns:1.3fr 1fr 1fr; } }
+.footer-brand .logo{ display:inline-block; margin-bottom:.9rem; }
+.footer-brand p{ color:var(--color-paper-text); font-size:.92rem; max-width:32ch; }
+.footer-col h4{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-brass); margin-bottom:1rem; }
+.footer-col a, .footer-col li{ color:var(--color-paper-text); font-size:.92rem; display:block; margin-bottom:.65rem; }
+.footer-col a:hover{ color:#F4F3EC; }
+.footer-social{ display:flex; gap:.8rem; margin-top:1rem; }
+.footer-social a{
+  width:32px; height:32px; border:1px solid var(--color-line-dark); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.footer-social svg{ width:14px; height:14px; }
+.footer-bottom{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem;
+  border-top:1px solid var(--color-line-dark); padding-top:1.6rem;
+  font-size:.82rem; color:var(--color-paper-text);
+}
+.footer-bottom .legal{ display:flex; gap:1.3rem; }
+
+/* ---------- Scroll reveal ---------- */
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.visible{ opacity:1; transform:none; }
+
+@media (min-width:760px){
+  .hero-grid{ grid-template-columns:1.3fr 1fr; }
+  .why-grid{ grid-template-columns:1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1!important; transform:none!important; transition:none!important; }
+  .service-card, .pin-badge, .nav-mobile, .nav-toggle span{ transition:none!important; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ================================================================
+     SECTION 1 — HEADER / NAV
+     Edit nav links in SITE_CONTENT.nav, brand name in SITE_CONTENT.meta
+     ================================================================ -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#home" id="logoText">Northbound <span>Partners</span></a>
+    <nav class="nav-desktop" id="nav-desktop" aria-label="Primary"></nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href="#newsletter-form-anchor" id="headerCta">Book a call</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile"></nav>
+</header>
+
+<main id="main">
+
+<!-- ================================================================
+     SECTION 2 — HERO
+     Edit headline, body copy, CTA, and the 3 stats in SITE_CONTENT.hero
+     ================================================================ -->
+<section class="hero" id="home">
+  <svg class="hero-rings" viewBox="0 0 560 560" aria-hidden="true">
+    <circle cx="280" cy="280" r="180"></circle>
+    <circle cx="280" cy="280" r="240"></circle>
+    <circle cx="280" cy="280" r="270"></circle>
+  </svg>
+  <div class="container hero-inner">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow" id="heroEyebrow"></span>
+        <h1 id="heroHeadline"></h1>
+        <p class="hero-lede" id="heroLede"></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="heroCta" href="#newsletter-form-anchor"></a>
+          <a class="btn btn-ghost on-dark" href="#services">See what we do</a>
+        </div>
+        <div class="hero-social" id="heroSocial"></div>
+      </div>
+      <div>
+        <div class="hero-stats" id="heroStats"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Signature element: route divider, reused as a quiet section break -->
+<div class="route-divider" id="routeDivider">
+  <div class="container">
+    <div class="route-pin">
+      <span class="pin-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 C12 21 19 14.3 19 9.3 A7 7 0 0 0 5 9.3 C5 14.3 12 21 12 21 Z"></path><circle cx="12" cy="9.3" r="2.4"></circle></svg>
+      </span>
+      <span>Plotting the route</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SECTION 3 — WHY CHOOSE US
+     Edit heading, intro, the 6 value points, and CTA in SITE_CONTENT.whyUs
+     ================================================================ -->
+<section class="why" id="why">
+  <div class="container why-grid">
+    <div>
+      <span class="eyebrow" id="whyEyebrow"></span>
+      <h2 id="whyHeading" class="reveal"></h2>
+      <p id="whyBody" class="reveal" style="color:var(--color-ink-soft); margin:1rem 0 0; max-width:48ch;"></p>
+      <div class="why-points" id="whyPoints"></div>
+      <a class="btn-text" id="whyCta" href="#newsletter-form-anchor"></a>
+    </div>
+    <div class="why-art reveal" aria-hidden="true">
+      <!-- Original decorative illustration: a simple contour / route motif -->
+      <svg viewBox="0 0 320 260" width="100%" style="max-width:320px;">
+        <g fill="none" stroke="#3E6B5E" stroke-width="1.4" opacity="0.55">
+          <path d="M10,210 C70,190 100,230 160,205 S250,170 310,200"></path>
+          <path d="M10,170 C70,150 110,190 170,165 S260,130 310,160"></path>
+          <path d="M10,130 C70,110 120,150 175,125 S260,95 310,120"></path>
+        </g>
+        <circle cx="170" cy="165" r="4" fill="#C8973A"></circle>
+        <path d="M170 165 C170 165 184 150 184 140 A14 14 0 0 0 156 140 C156 150 170 165 170 165 Z" fill="#15252A" opacity="0.85"></path>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 4 — WHAT WE OFFER (SERVICES)
+     Edit the 4 service cards in SITE_CONTENT.services.items
+     ================================================================ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-head">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow" id="servicesEyebrow"></span>
+        <h2 id="servicesHeading" class="reveal"></h2>
+        <p id="servicesBody" class="reveal"></p>
+      </div>
+      <a class="btn-text" id="servicesCta" href="#"></a>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 5 — LATEST INSIGHTS (BLOG)
+     Edit the 3 posts in SITE_CONTENT.insights.items
+     ================================================================ -->
+<section class="insights" id="insights">
+  <div class="container">
+    <div class="insights-head">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow" id="insightsEyebrow"></span>
+        <h2 id="insightsHeading" class="reveal"></h2>
+      </div>
+      <a class="btn-text" id="insightsCta" href="#"></a>
+    </div>
+    <div class="insights-grid" id="insightsGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 6 — OUR CLIENTS
+     Edit the client name list in SITE_CONTENT.clients.items
+     (swap these text placeholders for real client logos when ready)
+     ================================================================ -->
+<section class="clients" id="clients">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" id="clientsEyebrow"></span>
+      <h2 id="clientsHeading" class="reveal"></h2>
+    </div>
+    <div class="clients-grid" id="clientsGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 7 — TESTIMONIALS
+     Edit the 3 quotes/placeholders in SITE_CONTENT.testimonials.items
+     ================================================================ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" id="testiEyebrow"></span>
+      <h2 id="testiHeading" class="reveal"></h2>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 8 — FAQ
+     Edit questions/answers in SITE_CONTENT.faqs.items
+     ================================================================ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" id="faqEyebrow"></span>
+      <h2 id="faqHeading" class="reveal"></h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 9 — NEWSLETTER SIGNUP
+     Edit heading/body in SITE_CONTENT.newsletter.
+     Note for developer: this form is a UI placeholder — wire the
+     submit handler below to your email provider (Mailchimp, etc).
+     ================================================================ -->
+<section class="newsletter" id="newsletter-form-anchor">
+  <div class="container">
+    <div class="newsletter-box reveal">
+      <div>
+        <h2 id="newsletterHeading"></h2>
+        <p id="newsletterBody"></p>
+      </div>
+      <div>
+        <form class="newsletter-form" id="newsletterForm">
+          <label class="sr-only" for="newsletterEmail">Email address</label>
+          <input type="email" id="newsletterEmail" required>
+          <button class="btn btn-primary" type="submit" id="newsletterBtn"></button>
+        </form>
+        <p class="newsletter-note" id="newsletterNote" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================================================================
+     SECTION 10 — FOOTER
+     Edit address/email/social/legal in SITE_CONTENT.footer
+     ================================================================ -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#home">Northbound <span>Partners</span></a>
+        <p id="footerBlurb"></p>
+        <div class="footer-social" id="footerSocial"></div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <nav id="footerNav" aria-label="Footer"></nav>
+      </div>
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <p id="footerAddress"></p>
+        <a id="footerEmail" href="#"></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footerCopyright"></span>
+      <div class="legal" id="footerLegal"></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   ALL TEXT CONTENT LIVES HERE.
+   To customize the page, edit the values below — the markup
+   above is just a shell that gets filled in from this object.
+   ================================================================ */
+const SITE_CONTENT = {
+  meta: {
+    name: "Northbound Partners",
+    description: "Market-entry advisory"
+  },
+
+  nav: [
+    { label: "Home", href: "#home" },
+    { label: "About", href: "#why" },
+    { label: "Services", href: "#services" },
+    { label: "Insights", href: "#insights" },
+    { label: "Contact", href: "#contact" }
+  ],
+
+  hero: {
+    eyebrow: "Market-entry advisory",
+    headline: "Your map to markets that used to feel out of reach.",
+    lede: "Northbound Partners helps growth-stage companies expand into new regions without the guesswork. We chart the regulatory route, line up the right local partners, and stay close until the market is no longer new to you.",
+    ctaLabel: "Book a strategy call",
+    stats: [
+      { value: "120+", label: "Market entries guided" },
+      { value: "18", label: "Countries covered" },
+      { value: "98%", label: "Clients retained after year one" }
+    ],
+    social: [
+      { label: "LinkedIn", href: "#", icon: "linkedin" },
+      { label: "X", href: "#", icon: "x" },
+      { label: "Instagram", href: "#", icon: "instagram" },
+      { label: "Facebook", href: "#", icon: "facebook" }
+    ]
+  },
+
+  whyUs: {
+    eyebrow: "Why teams choose us",
+    heading: "Built for the long approach, not the quick win",
+    body: "Expansion rewards patience and punishes guesswork. Our team works alongside yours from the first feasibility question through to the day your local office opens its doors.",
+    ctaLabel: "More about how we work",
+    points: [
+      { title: "Integrity first", desc: "We tell clients what's true about a market, not what's easy to hear." },
+      { title: "Straight answers", desc: "Every recommendation comes with the reasoning behind it, in plain language." },
+      { title: "On-the-ground insight", desc: "Our advisors live and work in the regions they cover." },
+      { title: "Senior attention", desc: "You work directly with people who've done this before — not a rotating bench of juniors." },
+      { title: "Built for compliance", desc: "Every plan is checked against the regulatory reality first, not after." },
+      { title: "Long-term partnership", desc: "We stay engaged well past launch day, not just through signing." }
+    ]
+  },
+
+  services: {
+    eyebrow: "What we offer",
+    heading: "Four ways we shorten the distance to a new market",
+    body: "Pick the support you need now — most clients lean on more than one as the engagement grows.",
+    ctaLabel: "See all services",
+    items: [
+      { icon: "compass", title: "Market Feasibility & Entry Strategy", desc: "We size the opportunity, map the competitive field, and tell you honestly whether the timing is right." },
+      { icon: "shield", title: "Regulatory & Licensing Support", desc: "We carry your application through the process local rules actually require, not the one on paper." },
+      { icon: "scale", title: "Policy & Government Advisory", desc: "We advise regulators and operators alike, so we understand both sides of every new rule." },
+      { icon: "flag", title: "Operational Setup & Partnerships", desc: "We help you find the local partners, staff, and systems a new market needs to actually run." }
+    ]
+  },
+
+  insights: {
+    eyebrow: "Stay updated",
+    heading: "Latest insights",
+    ctaLabel: "See all posts",
+    items: [
+      { tag: "Strategy", title: "Five signs a market is ready for new entrants", excerpt: "The data that matters most rarely shows up in the headline reports. Here's what we check first.", date: "Insight" },
+      { tag: "Regulation", title: "What changes when a regulator updates the rulebook", excerpt: "A new rule rarely lands the same way twice. How we read the second-order effects.", date: "Insight" },
+      { tag: "Field Notes", title: "A founder's checklist before the first market visit", excerpt: "What to confirm on paper before you confirm it in person.", date: "Insight" }
+    ]
+  },
+
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams expanding into new ground",
+    items: ["Acme Holdings", "Brightline Co.", "Vertex Group", "Solstice Partners", "Harborlight", "Calder & Finch", "Greywick Ltd.", "Tidemark"]
+  },
+
+  testimonials: {
+    eyebrow: "Client testimonials",
+    heading: "What clients say",
+    items: [
+      { quote: "Entering a market we didn't fully understand felt risky until we had someone who'd already mapped it.", name: "Client Name", role: "Title, Company Name" },
+      { quote: "They were direct about the parts that wouldn't work before we spent money finding out ourselves.", name: "Client Name", role: "Title, Company Name" },
+      { quote: "The kind of partner who stays useful well after the contract is signed.", name: "Client Name", role: "Title, Company Name" }
+    ]
+  },
+
+  faqs: {
+    eyebrow: "Common questions",
+    heading: "Frequently asked questions",
+    items: [
+      { q: "What does a typical engagement look like?", a: "Most engagements start with a short feasibility phase, move into a structured entry plan, and continue into hands-on support through launch and beyond." },
+      { q: "How long does market entry usually take?", a: "It depends on the sector and the market, but most clients see a realistic entry timeline of six to eighteen months from first conversation to launch." },
+      { q: "Do you work with early-stage companies?", a: "Yes. We work with both early-stage teams testing a new region and established companies expanding their footprint." },
+      { q: "Can you help with licensing in more than one country at a time?", a: "Yes — we regularly run parallel licensing tracks across multiple jurisdictions for clients expanding into several markets at once." },
+      { q: "What happens after we launch?", a: "We stay engaged for ongoing compliance, local relationship management, and course-correction as the market evolves." },
+      { q: "How do we get started?", a: "Book a short call below. We'll ask a few questions about your business and the markets you're considering, then outline a realistic first step." }
+    ]
+  },
+
+  newsletter: {
+    heading: "Stay ahead of the next market",
+    body: "One short email when a market shifts, a rule changes, or a door opens. No noise.",
+    placeholder: "you@company.com",
+    button: "Subscribe"
+  },
+
+  footer: {
+    blurb: "Northbound Partners helps growth-stage companies expand into new markets with a plan that actually fits the region.",
+    address: "Nairobi · Lagos · Remote",
+    email: "hello@northboundpartners.example",
+    social: [
+      { label: "LinkedIn", href: "#", icon: "linkedin" },
+      { label: "X", href: "#", icon: "x" },
+      { label: "Instagram", href: "#", icon: "instagram" },
+      { label: "Facebook", href: "#", icon: "facebook" }
+    ],
+    legal: [
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms", href: "#" }
+    ],
+    copyright: "© 2026 Northbound Partners. All rights reserved."
+  }
+};
+
+/* ---------------------------------------------------------------
+   ICONS — small inline SVGs, referenced by name from SITE_CONTENT
+   --------------------------------------------------------------- */
+const ICONS = {
+  compass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polygon points="13.2,8.4 15.5,12 13.2,15.6 10.8,12" fill="currentColor" stroke="none"></polygon></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6.2 V11.3C20 16.6 16.4 20 12 21 C7.6 20 4 16.6 4 11.3V6.2 Z"></path></svg>',
+  scale: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"></line><line x1="12" y1="21" x2="16" y2="21"></line><line x1="12" y1="21" x2="8" y2="21"></line><line x1="5" y1="7" x2="19" y2="7"></line><path d="M5 7 L2.2 12.6 A3.8 3.8 0 0 0 7.8 12.6 Z"></path><path d="M19 7 L16.2 12.6 A3.8 3.8 0 0 0 21.8 12.6 Z"></path></svg>',
+  flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="3" x2="5" y2="21"></line><path d="M5 4.5 H18 L14.8 8.3 L18 12 H5 Z" fill="currentColor" fill-opacity="0.12"></path></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 C12 21 19 14.3 19 9.3 A7 7 0 0 0 5 9.3 C5 14.3 12 21 12 21 Z"></path><circle cx="12" cy="9.3" r="2.4"></circle></svg>',
+  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9z"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h4.4l4.2 5.8L16.2 3H21l-6.7 8.6L21.4 21H17l-4.6-6.3L7 21H3l7.1-9.1L3 3z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1"></circle></svg>',
+  facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.2c0-.87.24-1.46 1.5-1.46H16.6V4.14C16.16 4.08 14.96 4 13.55 4 10.6 4 8.5 5.8 8.5 9.1v1.4H6v3h2.5V21h5z"/></svg>'
+};
+
+/* ---------------------------------------------------------------
+   RENDER FUNCTIONS — fill the markup shell with SITE_CONTENT
+   --------------------------------------------------------------- */
+function renderNav(){
+  const desktop = document.getElementById('nav-desktop');
+  const mobile = document.getElementById('nav-mobile');
+  const links = SITE_CONTENT.nav.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+  desktop.innerHTML = links;
+  mobile.innerHTML = links + `<a class="btn btn-primary" href="#newsletter-form-anchor">Book a call</a>`;
+  document.getElementById('headerCta').textContent = "Book a call";
+}
+
+function renderHero(){
+  const h = SITE_CONTENT.hero;
+  document.getElementById('heroEyebrow').innerHTML = `<span class="ico">${ICONS.compass}</span>${h.eyebrow}`;
+  document.getElementById('heroHeadline').textContent = h.headline;
+  document.getElementById('heroLede').textContent = h.lede;
+  document.getElementById('heroCta').textContent = h.ctaLabel;
+  document.getElementById('heroStats').innerHTML = h.stats.map(s => `
+    <div>
+      <div class="stat-value">${s.value}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join('');
+  document.getElementById('heroSocial').innerHTML = h.social.map(s => `
+    <a href="${s.href}" aria-label="${s.label}">${ICONS[s.icon] || ''}</a>
+  `).join('');
+}
+
+function renderWhyUs(){
+  const w = SITE_CONTENT.whyUs;
+  document.getElementById('whyEyebrow').innerHTML = `<span class="ico">${ICONS.pin}</span>${w.eyebrow}`;
+  document.getElementById('whyHeading').textContent = w.heading;
+  document.getElementById('whyBody').textContent = w.body;
+  document.getElementById('whyCta').textContent = w.ctaLabel;
+  document.getElementById('whyPoints').innerHTML = w.points.map(p => `
+    <div class="why-point reveal">
+      <span class="ico">${ICONS.pin}</span>
+      <div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderServices(){
+  const s = SITE_CONTENT.services;
+  document.getElementById('servicesEyebrow').innerHTML = `<span class="ico">${ICONS.compass}</span>${s.eyebrow}`;
+  document.getElementById('servicesHeading').textContent = s.heading;
+  document.getElementById('servicesBody').textContent = s.body;
+  document.getElementById('servicesCta').textContent = s.ctaLabel;
+  document.getElementById('servicesGrid').innerHTML = s.items.map((item,i) => `
+    <div class="service-card reveal" style="transition-delay:${i*70}ms">
+      <span class="ico">${ICONS[item.icon] || ''}</span>
+      <h3>${item.title}</h3>
+      <p>${item.desc}</p>
+    </div>
+  `).join('');
+}
+
+function renderInsights(){
+  const ins = SITE_CONTENT.insights;
+  document.getElementById('insightsEyebrow').innerHTML = `<span class="ico">${ICONS.flag}</span>${ins.eyebrow}`;
+  document.getElementById('insightsHeading').textContent = ins.heading;
+  document.getElementById('insightsCta').textContent = ins.ctaLabel;
+  document.getElementById('insightsGrid').innerHTML = ins.items.map((post,i) => `
+    <article class="insight-card reveal" style="transition-delay:${i*70}ms">
+      <div class="insight-thumb"><span class="tag">${post.tag}</span></div>
+      <span class="meta">${post.date}</span>
+      <h3>${post.title}</h3>
+      <p>${post.excerpt}</p>
+      <a class="btn-text" href="#">Read more</a>
+    </article>
+  `).join('');
+}
+
+function renderClients(){
+  const c = SITE_CONTENT.clients;
+  document.getElementById('clientsEyebrow').innerHTML = `<span class="ico">${ICONS.shield}</span>${c.eyebrow}`;
+  document.getElementById('clientsHeading').textContent = c.heading;
+  document.getElementById('clientsGrid').innerHTML = c.items.map(name => `
+    <div class="client-cell">${name}</div>
+  `).join('');
+}
+
+function renderTestimonials(){
+  const t = SITE_CONTENT.testimonials;
+  document.getElementById('testiEyebrow').innerHTML = `<span class="ico">${ICONS.pin}</span>${t.eyebrow}`;
+  document.getElementById('testiHeading').textContent = t.heading;
+  document.getElementById('testiGrid').innerHTML = t.items.map((item,i) => `
+    <div class="testi-card reveal" style="transition-delay:${i*70}ms">
+      <p class="testi-quote">${item.quote}</p>
+      <p class="testi-who"><strong>${item.name}</strong>${item.role}</p>
+    </div>
+  `).join('');
+}
+
+function renderFaqs(){
+  const f = SITE_CONTENT.faqs;
+  document.getElementById('faqEyebrow').innerHTML = `<span class="ico">${ICONS.scale}</span>${f.eyebrow}`;
+  document.getElementById('faqHeading').textContent = f.heading;
+  const wrap = document.getElementById('faqList');
+  wrap.innerHTML = f.items.map((item,i) => `
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false" aria-controls="faq-a-${i}" id="faq-q-${i}">
+        <span>${item.q}</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a" id="faq-a-${i}" role="region" aria-labelledby="faq-q-${i}" hidden>
+        <p>${item.a}</p>
+      </div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const answer = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', String(!expanded));
+      answer.hidden = expanded;
+      btn.closest('.faq-item').classList.toggle('open', !expanded);
+    });
+  });
+}
+
+function renderNewsletter(){
+  const n = SITE_CONTENT.newsletter;
+  document.getElementById('newsletterHeading').textContent = n.heading;
+  document.getElementById('newsletterBody').textContent = n.body;
+  document.getElementById('newsletterEmail').placeholder = n.placeholder;
+  document.getElementById('newsletterBtn').textContent = n.button;
+
+  // Placeholder submit handler — wire this to your real email provider.
+  document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('newsletterNote').textContent = "Thanks — you're on the list.";
+    e.target.reset();
+  });
+}
+
+function renderFooter(){
+  const f = SITE_CONTENT.footer;
+  document.getElementById('footerBlurb').textContent = f.blurb;
+  document.getElementById('footerAddress').textContent = f.address;
+  const emailEl = document.getElementById('footerEmail');
+  emailEl.textContent = f.email;
+  emailEl.href = `mailto:${f.email}`;
+  document.getElementById('footerSocial').innerHTML = f.social.map(s => `
+    <a href="${s.href}" aria-label="${s.label}">${ICONS[s.icon] || ''}</a>
+  `).join('');
+  document.getElementById('footerNav').innerHTML = SITE_CONTENT.nav.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+  document.getElementById('footerLegal').innerHTML = f.legal.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+  document.getElementById('footerCopyright').textContent = f.copyright;
+}
+
+/* ---------------------------------------------------------------
+   BEHAVIOR — nav toggle, sticky header, reveal-on-scroll
+   --------------------------------------------------------------- */
+function setupHeaderScroll(){
+  const header = document.getElementById('site-header');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function setupNavToggle(){
+  const toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', () => {
+    const open = document.body.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.getElementById('nav-mobile').addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+function setupRouteDividerReveal(){
+  const el = document.getElementById('routeDivider');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        el.classList.add('in-view');
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+}
+
+function setupReveal(){
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+/* ---------------------------------------------------------------
+   INIT
+   --------------------------------------------------------------- */
+document.title = `${SITE_CONTENT.meta.name} — ${SITE_CONTENT.meta.description}`;
+renderNav();
+renderHero();
+renderWhyUs();
+renderServices();
+renderInsights();
+renderClients();
+renderTestimonials();
+renderFaqs();
+renderNewsletter();
+renderFooter();
+setupHeaderScroll();
+setupNavToggle();
+setupRouteDividerReveal();
+setupReveal();
+</script>
+</body>
+</html>
